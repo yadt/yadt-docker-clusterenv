@@ -8,5 +8,4 @@ HOSTNAME=${1:?no HOSTNAME given?!}
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --mount-dir=rootfs/minion/etc/yadt.conf.d:/etc/yadt.conf.d/:ro \
     --link-files=yadt-minion/src/main/scripts/*:/usr/bin \
-    --link-files=yadt-minion/src/main/python/*:_python_path_ \
-    --link-files=rootfs/all/.*:/root/
+    --link-files=yadt-minion/src/main/python/*:_python_path_
