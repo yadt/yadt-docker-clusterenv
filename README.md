@@ -53,4 +53,7 @@ TODO/Coming Soon
 
 * create target file automatically
 * integrate more yadt components
+* pimp bash prompt of machines, to know where you are
+
+* [TODOS of docker-clusterenv](https://github.com/arnehilmann/docker-clusterenv#todo)
 
