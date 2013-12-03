@@ -13,4 +13,5 @@ EOTARGET
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --interactive \
     --link-files=yadtshell/src/main/scripts/*:/usr/bin \
-    --link-files=yadtshell/src/main/python/*:_python_path_
+    --link-files=yadtshell/src/main/python/*:_python_path_ \
+    --link-files=rootfs/all/.*:/
