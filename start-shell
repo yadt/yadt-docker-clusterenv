@@ -3,7 +3,7 @@ set -e -E -u
 
 DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
 
-HOSTNAME=${1:?no HOSTNAME given?!}
+HOSTNAME=${1:-yadtshell}
 
 cat <<EOTARGET > out/target
 hosts:
