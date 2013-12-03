@@ -53,7 +53,7 @@ exit
 For Mac Users
 -------------
 
-* follow the [install steps](http://docs.docker.io/en/latest/installation/vagrant/)
+* follow the official docker [install steps for Mac](http://docs.docker.io/en/latest/installation/vagrant/)
 * when connected to your new vagrant box:
 ```bash
 sudo docker -d
@@ -61,7 +61,7 @@ sudo apt-get install pip git
 sudo pip install python-docopt
 ```
 
-* then follow "tl;dr initialization"
+* then proceed normally with [tl;dr initialization](https://github.com/yadt/yadt-docker-clusterenv#tldr-initialization-just-once)
 
 TODO/Coming Soon
 ----------------
