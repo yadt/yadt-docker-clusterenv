@@ -5,6 +5,11 @@ DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
 
 HOSTNAME=${1:?no HOSTNAME given?!}
 
+cat <<EOTARGET > out/target
+hosts:
+- $(sed -n "s_^address=/__;T;s_/.*__;T;p" out/etc/dnsmasq.d/* | tr "\n" " ")
+EOTARGET
+
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --interactive \
     --link-files=yadtshell/src/main/scripts/*:/usr/bin \
