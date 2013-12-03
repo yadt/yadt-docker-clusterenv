@@ -50,10 +50,23 @@ yadtshell status
 exit
 ```
 
+For Mac Users
+-------------
+
+* follow the [install steps](http://docs.docker.io/en/latest/installation/vagrant/)
+* when connected to your new vagrant box:
+```bash
+sudo docker -d
+sudo apt-get install pip git
+sudo pip install python-docopt
+```
+
+* then follow "tl;dr initialization"
+
 TODO/Coming Soon
 ----------------
 
-* create target file automatically
+* ~~create target file automatically~~
 * integrate more yadt components
 * pimp bash prompt of machines, to know where you are
 
