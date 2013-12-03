@@ -40,6 +40,12 @@ tl;dr: normal usage
 
 # on 'master'
 ssh foo1 hostname
+
+# ...
+
+# to stop the whole cluster
+/local-fs/out/stop-clusterenv
+exit
 ```
 
 TODO/Coming Soon
