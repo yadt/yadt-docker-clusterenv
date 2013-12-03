@@ -1,0 +1,6 @@
+[submodule "yadtshell"]
+	path = yadtshell
+	url = https://github.com/yadt/yadtshell.git
+[submodule "yadt-minion"]
+	path = yadt-minion
+	url = https://github.com/yadt/yadt-minion.git

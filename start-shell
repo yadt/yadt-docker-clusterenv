@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e -E -u
+
+DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
+
+HOSTNAME=${1:?no HOSTNAME given?!}
+
+$DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
+    --interactive \
+    --link-files=yadtshell/src/main/scripts/*:/usr/bin \
+    --link-files=yadtshell/src/main/python/*:_python_path_
