@@ -66,8 +66,8 @@ config.vm.share_folder "local-fs", "/local-fs", "../"
 * when connected to your new vagrant box:
 ```bash
 sudo docker -d
-sudo apt-get install pip git
-sudo pip install python-docopt
+sudo apt-get install python-pip git
+sudo pip install docopt
 ```
 
 * then proceed normally with [tl;dr initialization](https://github.com/yadt/yadt-docker-clusterenv#tldr-initialization-just-once)
