@@ -54,6 +54,15 @@ For Mac Users
 -------------
 
 * follow the official docker [install steps for Mac](http://docs.docker.io/en/latest/installation/vagrant/)
+* before you run:
+```bash
+vagrant up
+```
+add this line to your Vagrantfile (Section: Vagrant::Config.run do |config|):
+```bash
+config.vm.share_folder "local-fs", "/local-fs", "../"
+```
+
 * when connected to your new vagrant box:
 ```bash
 sudo docker -d
