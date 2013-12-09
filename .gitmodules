@@ -19,3 +19,9 @@
 [submodule "yadtbroadcast-service"]
 	path = yadtbroadcast-service
 	url = https://github.com/yadt/yadtbroadcast-service.git
+[submodule "yadtreceiver"]
+	path = yadtreceiver
+	url = https://github.com/yadt/yadtreceiver.git
+[submodule "yadtcommons"]
+	path = yadtcommons
+	url = https://github.com/yadt/yadtcommons.git
