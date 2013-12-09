@@ -2,8 +2,8 @@
 set -e -E -u
 
 DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
-HOSTNAME=${1:-}
-OUT_DIR=out/logs/shell
+HOSTNAME=${1:-shell}
+OUT_DIR=out/logs/$HOSTNAME
 
 cat <<EOTARGET > out/target
 hosts:
