@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e -E -u
+
+DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
+
+HOSTNAME=${1:-}
+
+mkdir -p out/broadcaster
+
+$DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
+    --mount-dir=rootfs/broadcaster/etc/yadt.conf.d:/etc/yadt.conf.d:ro \
+    --mount-dir=rootfs/broadcaster/etc/yadtbroadcast-server/:/etc/yadtbroadcast-server:ro \
+    --mount-dir=out/broadcaster:/var/log/broadcaster:rw \
+    --link-files=yadt-minion/src/main/scripts/*:/usr/bin \
+    --link-files=yadt-minion/src/main/python/*:_python_path_ \
+    --link-files=yadtbroadcast-server/src/main/scripts/*:/usr/bin \
+    --link-files=yadtbroadcast-server/src/main/python/*:_python_path_ \
+    --link-files=yadtbroadcast-service/src/etc/init.d/*:/etc/init.d \
+    --link-files=yadtbroadcast-server-docroot/src/var/yadtbroadcast-server/*:/var/yadtbroadcast-server
+
+
