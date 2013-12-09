@@ -13,14 +13,19 @@ mkdir -p $OUT_DIR
 
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --mount-dir=rootfs/receiver/etc/yadtshell:/etc/yadtshell:ro \
+    --mount-dir=rootfs/receiver/etc/yadt.conf.d:/etc/yadt.conf.d:ro \
     --mount-dir=$OUT_DIR:/var/log:rw \
     --link-files=yadtcommons/src/main/python/*:_python_path_ \
     --link-files=yadtreceiver/src/main/scripts/*:/usr/bin \
     --link-files=yadtreceiver/src/main/python/*:_python_path_ \
-    --link-files=yadtreceiver/src/main/python/yadtreceiver:/usr/bin \
+    --link-files=yadtreceiver/src/main/python/yadtreceiver/yadtreceiver:/etc/init.d \
+    --link-files=yadtreceiver/src/main/python/yadtreceiver/yadtreceiver.tac:/etc/twisted-taps \
     --link-files=yadtbroadcast-client/src/main/scripts/*:/usr/bin \
     --link-files=yadtbroadcast-client/src/main/python/*:_python_path_ \
     --link-files=hostexpand/src/main/scripts/*:/usr/bin \
     --link-files=hostexpand/src/main/python/*:_python_path_ \
+    --link-files=yadt-minion/src/main/scripts/*:/usr/bin \
+    --link-files=yadt-minion/src/main/python/*:_python_path_ \
     --link-files=yadtshell/src/main/scripts/*:/usr/bin \
-    --link-files=yadtshell/src/main/python/*:_python_path_
+    --link-files=yadtshell/src/main/python/*:_python_path_ \
+    --post-init-machine=start-receiver-post-init
