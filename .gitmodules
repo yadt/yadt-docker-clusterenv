@@ -4,3 +4,18 @@
 [submodule "yadt-minion"]
 	path = yadt-minion
 	url = https://github.com/yadt/yadt-minion.git
+[submodule "hostexpand"]
+	path = hostexpand
+	url = https://github.com/yadt/hostexpand.git
+[submodule "yadtbroadcast-client"]
+	path = yadtbroadcast-client
+	url = https://github.com/yadt/yadtbroadcast-client.git
+[submodule "yadtbroadcast-server"]
+	path = yadtbroadcast-server
+	url = https://github.com/yadt/yadtbroadcast-server.git
+[submodule "yadtbroadcast-server-docroot"]
+	path = yadtbroadcast-server-docroot
+	url = https://github.com/yadt/yadtbroadcast-server-docroot.git
+[submodule "yadtbroadcast-service"]
+	path = yadtbroadcast-service
+	url = https://github.com/yadt/yadtbroadcast-service.git
