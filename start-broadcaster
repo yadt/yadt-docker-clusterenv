@@ -18,6 +18,6 @@ $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --link-files=yadtbroadcast-server/src/main/scripts/*:/usr/bin \
     --link-files=yadtbroadcast-server/src/main/python/*:_python_path_ \
     --link-files=yadtbroadcast-service/src/etc/init.d/*:/etc/init.d \
-    --link-files=yadtbroadcast-server-docroot/src/var/yadtbroadcast-server/*:/var/yadtbroadcast-server
-
+    --link-files=yadtbroadcast-server-docroot/src/var/yadtbroadcast-server/*:/var/yadtbroadcast-server \
+    --post-init-machine=start-broadcaster-post-init
 
