@@ -2,16 +2,18 @@
 set -e -E -u
 
 DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
-
 HOSTNAME=${1:-}
+OUT_DIR=out/logs/shell
 
 cat <<EOTARGET > out/target
 hosts:
 - $(sed -n "s_^address=/__;T;s_/.*__;T;p" out/etc/dnsmasq.d/* | tr "\n" " ")
 EOTARGET
+mkdir -p $OUT_DIR
 
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --interactive \
+    --mount-dir=$OUT_DIR:/tmp/logs/yadtshell:rw \
     --link-files=hostexpand/src/main/scripts/*:/usr/bin \
     --link-files=hostexpand/src/main/python/*:_python_path_ \
     --link-files=yadtshell/src/main/scripts/*:/usr/bin \
