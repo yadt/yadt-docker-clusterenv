@@ -2,13 +2,20 @@
 set -e -E -u
 
 DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
-HOSTNAME=${1:-controller}
+#HOSTNAME=${1:-controller}
+HOSTNAME=controller
 OUT_DIR=out/logs/$HOSTNAME
 
 mkdir -p $OUT_DIR
 
+CMD="$@"
+
+if [[ -z $CMD ]]; then
+    echo "no command given?! what do you want? (NEVER ask that question!)"
+    exit 1
+fi
+
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
-    --interactive \
     --mount-dir=rootfs/controller/etc/yadtshell:/etc/yadtshell:ro \
     --mount-dir=$OUT_DIR:/tmp/logs/controller:rw \
     --link-files=fysom/src/main/python/*:_python_path_ \
@@ -16,4 +23,5 @@ $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --link-files=yadtbroadcast-client/src/main/python/*:_python_path_ \
     --link-files=yadtcommons/src/main/python/*:_python_path_ \
     --link-files=yadtcontroller/src/main/scripts/*:/usr/bin \
-    --link-files=yadtcontroller/src/main/python/*:_python_path_
+    --link-files=yadtcontroller/src/main/python/*:_python_path_\
+    $CMD
