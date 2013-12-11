@@ -1,15 +1,12 @@
 #!/bin/bash
 set -e -E -u
 
-DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
+DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-./docker-clusterenv}
 HOSTNAME=${1:-receiver}
 OUT_DIR=out/logs/$HOSTNAME
-
-cat <<EOTARGET > out/target
-hosts:
-- $(sed -n "s_^address=/__;T;s_/.*__;T;p" out/etc/dnsmasq.d/* | tr "\n" " ")
-EOTARGET
 mkdir -p $OUT_DIR
+
+./update-targetfile
 
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --mount-dir=rootfs/receiver/etc/yadtshell:/etc/yadtshell:ro \

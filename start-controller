@@ -1,12 +1,13 @@
 #!/bin/bash
 set -e -E -u
 
-DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
+DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-./docker-clusterenv}
 #HOSTNAME=${1:-controller}
 HOSTNAME=controller
 OUT_DIR=out/logs/$HOSTNAME
-
 mkdir -p $OUT_DIR
+
+./update-targetfile
 
 CMD="$@"
 

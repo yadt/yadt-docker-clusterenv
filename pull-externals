@@ -1,0 +1,55 @@
+#!/bin/bash
+set -u -e -E
+
+YADT_WORKSPACE=${YADT_WORKSPACE:-.}
+DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-$YADT_WORKSPACE/docker-clusterenv}
+
+echo "create/update yadt workspace"
+echo "-- settings"
+echo "---- yadt workspace: $YADT_WORKSPACE"
+echo "---- docker clusterenv: $DOCKER_CLUSTERENV_HOME"
+
+CURRENT_DIR=$(pwd)
+
+PROJECTS="
+    https://github.com/yadt/yadtshell.git
+    https://github.com/yadt/yadt-minion.git
+    https://github.com/yadt/hostexpand.git
+    https://github.com/yadt/yadtbroadcast-client.git
+    https://github.com/yadt/yadtbroadcast-server.git
+    https://github.com/yadt/yadtbroadcast-server-docroot.git
+    https://github.com/yadt/yadtbroadcast-service.git
+    https://github.com/yadt/yadtreceiver.git
+    https://github.com/yadt/yadtcommons.git
+    https://github.com/yadt/yadtcontroller.git
+    https://github.com/mriehl/fysom.git
+    https://github.com/arnehilmann/docker-clusterenv.git
+"
+
+echo "-- cloning/updating projects"
+for PROJECT_URL in $PROJECTS; do
+    PROJECT_NAME=$(basename $PROJECT_URL .git)
+    PROJECT_PATH=$YADT_WORKSPACE/$PROJECT_NAME
+    echo "---- $PROJECT_NAME"
+    echo "------ $PROJECT_PATH <- $PROJECT_URL"
+
+    if [[ -d $PROJECT_PATH ]]; then
+        echo "------ updating"
+        cd $PROJECT_PATH
+        git pull
+        cd $CURRENT_DIR
+    else
+        echo "------ cloning"
+        cd $YADT_WORKSPACE
+        git clone $PROJECT_URL
+        cd $CURRENT_DIR
+    fi
+    cd $PROJECT_PATH
+    git st
+    cd $CURRENT_DIR
+
+    echo
+done
+
+echo "done."
+
