@@ -26,7 +26,11 @@ PROJECTS="
     https://github.com/arnehilmann/docker-clusterenv.git
 "
 
-echo "-- cloning/updating projects"
+echo "-- updating local project"
+git pull
+git status
+
+echo "-- cloning/updating subprojects"
 for PROJECT_URL in $PROJECTS; do
     PROJECT_NAME=$(basename $PROJECT_URL .git)
     PROJECT_PATH=$YADT_WORKSPACE/$PROJECT_NAME
