@@ -45,7 +45,7 @@ for PROJECT_URL in $PROJECTS; do
         cd $CURRENT_DIR
     fi
     cd $PROJECT_PATH
-    git st
+    git status
     cd $CURRENT_DIR
 
     echo
