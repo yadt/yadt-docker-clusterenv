@@ -1,0 +1,16 @@
+#!/bin/bash
+set -u -e -E
+
+DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-../docker-clusterenv}
+
+TARGET_FILE=out/target
+
+
+rm -f $TARGET_FILE
+exec 3>&1 1>$TARGET_FILE
+echo "hosts:"
+echo -n "- "
+$DOCKER_CLUSTERENV_HOME/cleanup-dns 2> /dev/null | tr "\n" " "
+echo
+exec 1>&3
+
