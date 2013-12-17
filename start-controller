@@ -17,8 +17,8 @@ if [[ -z $CMD ]]; then
 fi
 
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
-    --mount-dir=rootfs/controller/etc/yadtshell:/etc/yadtshell:ro \
-    --mount-dir=$OUT_DIR:/tmp/logs/controller:rw \
+    --link-files=rootfs/controller/etc/yadtshell:/etc \
+    --link-files=$OUT_DIR:/tmp/logs/controller \
     --link-files=fysom/src/main/python/*:_python_path_ \
     --link-files=yadtbroadcast-client/src/main/scripts/*:/usr/bin \
     --link-files=yadtbroadcast-client/src/main/python/*:_python_path_ \

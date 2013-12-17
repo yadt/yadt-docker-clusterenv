@@ -9,9 +9,9 @@ mkdir -p $OUT_DIR
 ./update-targetfile
 
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
-    --mount-dir=rootfs/receiver/etc/yadtshell:/etc/yadtshell:ro \
-    --mount-dir=rootfs/receiver/etc/yadt.conf.d:/etc/yadt.conf.d:ro \
-    --mount-dir=$OUT_DIR:/var/log:rw \
+    --link-files=rootfs/receiver/etc/yadtshell:/etc \
+    --link-files=rootfs/receiver/etc/yadt.conf.d:/etc \
+    --link-files=$OUT_DIR:/var/log \
     --link-files=yadtcommons/src/main/python/*:_python_path_ \
     --link-files=yadtreceiver/src/main/scripts/*:/usr/bin \
     --link-files=yadtreceiver/src/main/python/*:_python_path_ \

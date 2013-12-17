@@ -8,11 +8,11 @@ OUT_DIR=out/logs/$HOSTNAME
 mkdir -p $OUT_DIR
 
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
-    --mount-dir=rootfs/broadcaster/etc/yadt.conf.d:/etc/yadt.conf.d:ro \
-    --mount-dir=rootfs/broadcaster/etc/yadtbroadcast-server/:/etc/yadtbroadcast-server:ro \
-    --mount-dir=$OUT_DIR:/tmp/logs/broadcaster:rw \
     --port=8080:8080 \
     --port=8081:8081 \
+    --link-files=rootfs/broadcaster/etc/yadt.conf.d:/etc \
+    --link-files=rootfs/broadcaster/etc/yadtbroadcast-server/:/etc \
+    --link-files=$OUT_DIR:/tmp/logs/broadcaster \
     --link-files=yadt-minion/src/main/scripts/*:/usr/bin \
     --link-files=yadt-minion/src/main/python/*:_python_path_ \
     --link-files=yadtbroadcast-server/src/main/scripts/*:/usr/bin \
