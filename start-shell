@@ -11,7 +11,7 @@ mkdir -p $OUT_DIR
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --interactive \
     --link-files=$OUT_DIR:/tmp/logs/yadtshell \
-    --link-files=rootfs/shell/etc/yadtshell:/etc/yadtshell \
+    --link-files=rootfs/shell/etc/yadtshell:/etc \
     --link-files=yadtbroadcast-client/src/main/scripts/*:/usr/bin \
     --link-files=yadtbroadcast-client/src/main/python/*:_python_path_ \
     --link-files=hostexpand/src/main/scripts/*:/usr/bin \
