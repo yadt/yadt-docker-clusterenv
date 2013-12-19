@@ -13,6 +13,7 @@ $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --link-files=rootfs/receiver/etc/yadt.conf.d:/etc \
     --link-files=$OUT_DIR:/var/log \
     --link-files=yadtcommons/src/main/python/*:_python_path_ \
+    --link-files=fysom/src/main/python/*:_python_path_ \
     --link-files=yadtreceiver/src/main/scripts/*:/usr/bin \
     --link-files=yadtreceiver/src/main/python/*:_python_path_ \
     --link-files=yadtreceiver/src/main/python/yadtreceiver/yadtreceiver:/etc/init.d \
