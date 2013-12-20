@@ -76,8 +76,8 @@ TODO/Coming Soon
 ----------------
 
 * ~~create target file automatically~~
-* integrate more yadt components
-* pimp bash prompt of machines, to know where you are
+* ~~integrate more yadt components~~
+* ~~pimp bash prompt of machines, to know where you are~~
 * /local-fs must not be mounted writeable
 * better place for the log files than logs/
 * local machine user must not be root
