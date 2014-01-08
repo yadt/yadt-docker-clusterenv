@@ -5,13 +5,14 @@ DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-./docker-clusterenv}
 HOSTNAME=${1:-receiver}
 OUT_DIR=out/logs/$HOSTNAME
 mkdir -p $OUT_DIR
+touch $OUT_DIR/yadtreceiver.log
 
 ./update-targetfile
 
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --link-files=rootfs/receiver/etc/yadtshell:/etc \
     --link-files=rootfs/receiver/etc/yadt.conf.d:/etc \
-    --link-files=$OUT_DIR:/var/log \
+    --link-files=$OUT_DIR/*.log:/var/log \
     --link-files=yadtcommons/src/main/python/*:_python_path_ \
     --link-files=fysom/src/main/python/*:_python_path_ \
     --link-files=yadtreceiver/src/main/scripts/*:/usr/bin \
