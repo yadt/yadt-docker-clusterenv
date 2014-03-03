@@ -1,3 +1,6 @@
 services:
     front:
+        needs_services: [middle]
+    middle:
+        needs_services: [back]
     back:

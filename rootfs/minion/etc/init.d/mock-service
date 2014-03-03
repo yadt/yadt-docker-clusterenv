@@ -2,41 +2,20 @@
 set -u -e -E -o pipefail
 
 SERVICE=$(basename $0)
-SERVICE_DIR=$(dirname $0)
 CMD=$1
 STATUS=/tmp/status-$SERVICE
 EC=0
-YADT_SERVICES=/etc/yadt.services
-BEHAVIOUR=/tmp/behaviour-$SERVICE-$CMD
-
-[[ -x $BEHAVIOUR ]] && $BEHAVIOUR
-
-#NEEDS=$(sed -n "/^- $SERVICE:/,/^-/{/needs_services:/{s/^.*\[//;s/]//;s/, /\n/g;p}}" $YADT_SERVICES)
-
-#NEEDEDBYS=$(sed -n "/^-/{s/- \(.*\):/\1/;h};/needs_services:.*$SERVICE/{g;p}" $YADT_SERVICES)
 
 case "$CMD" in
-    start)      
-        #for NEED in $NEEDS; do
-        #        if ! $SERVICE_DIR/$NEED status; then
-        #                echo "needed service $NEED not up, aborting" >&2
-        #                exit 1
-        #        fi
-        #done
+    start)
         echo 0 > $STATUS
-	sleep 1
+        sleep 1
         ;;
-    stop)       
-        #for NEEDEDBY in $NEEDEDBYS; do
-        #        if $SERVICE_DIR/$NEEDEDBY status; then
-        #                echo "needing service $NEEDEDBY not down, aborting" >&2
-        #                exit 1
-        #        fi
-        #done
+    stop)
         echo 3 > $STATUS
-	sleep 1
+        sleep 1
         ;;
-    status)     
+    status)
         EC=$(cat $STATUS 2> /dev/null) || EC=1
         ;;
 esac
