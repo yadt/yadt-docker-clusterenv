@@ -12,10 +12,17 @@ cp local-dns-only out/
 $DOCKER_CLUSTERENV_HOME/start-machine $HOSTNAME \
     --interactive \
     --link-files=$OUT_DIR:/tmp/logs/yadtshell \
-    --link-files=rootfs/shell/etc/yadtshell:/etc \
+    --link-files=rootfs/shell/etc/yadtshell/*:/etc/yadtshell/ \
     --link-files=yadtbroadcast-client/src/main/scripts/*:/usr/bin \
     --link-files=yadtbroadcast-client/src/main/python/*:_python_path_ \
     --link-files=hostexpand/src/main/scripts/*:/usr/bin \
     --link-files=hostexpand/src/main/python/*:_python_path_ \
     --link-files=yadtshell/src/main/scripts/*:/usr/bin \
-    --link-files=yadtshell/src/main/python/*:_python_path_
+    --link-files=yadtshell/src/main/python/*:_python_path_ \
+    \
+    --link-files=yadtcommons/src/main/python/*:_python_path_ \
+    --link-files=yadtcontroller/src/main/scripts/*:/usr/bin \
+    --link-files=yadtcontroller/src/main/python/*:_python_path_ \
+    --link-files=fysom/src/main/python/*:_python_path_ \
+    --link-files=rootfs/controller/etc/yadtshell/*:/etc/yadtshell/
+
