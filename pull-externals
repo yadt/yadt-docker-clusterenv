@@ -1,59 +1,72 @@
-#!/bin/bash
-set -u -e -E
+#!/usr/bin/env python
+import os
+import subprocess
 
-YADT_WORKSPACE=${YADT_WORKSPACE:-.}
-DOCKER_CLUSTERENV_HOME=${DOCKER_CLUSTERENV_HOME:-$YADT_WORKSPACE/docker-clusterenv}
+DOCKER_CLUSTERENV_HOME = "./docker-clusterenv"
+PROJECT_DEFS_DIR = "projects"
+PULL = "pull"
+CLONE = "clone"
+STATUS = "status"
 
-echo "create/update yadt workspace"
-echo "-- settings"
-echo "---- yadt workspace: $YADT_WORKSPACE"
-echo "---- docker clusterenv: $DOCKER_CLUSTERENV_HOME"
+REPO_CMDS = {
+    "git": {
+        PULL: ["git", "pull"],
+        CLONE: ["git", "clone"],
+        STATUS: ["git", "status"]
+    },
+    "svn": {
+        PULL: ["svn", "up"],
+        CLONE: ["svn", "co"],
+        STATUS: ["svn", "status"]
+    }
+}
 
-CURRENT_DIR=$(pwd)
+print "create/update workspace"
+print "-- settings"
+print "---- docker clusterenv: %s" % DOCKER_CLUSTERENV_HOME
 
-PROJECTS="
-    https://github.com/yadt/yadtshell.git
-    https://github.com/yadt/yadt-minion.git
-    https://github.com/yadt/hostexpand.git
-    https://github.com/yadt/yadtbroadcast-client.git
-    https://github.com/yadt/yadtbroadcast-server.git
-    https://github.com/yadt/yadtbroadcast-server-docroot.git
-    https://github.com/yadt/yadtbroadcast-service.git
-    https://github.com/yadt/yadtreceiver.git
-    https://github.com/yadt/yadtcommons.git
-    https://github.com/yadt/yadtcontroller.git
-    https://github.com/mriehl/fysom.git
-    https://github.com/arnehilmann/docker-clusterenv.git
-"
+project_def_files = os.listdir(PROJECT_DEFS_DIR)
 
-echo "-- updating local project"
-git pull
-git status
+print "-- external definitions"
+print "---- %s" % " ".join(project_def_files)
 
-echo "-- cloning/updating subprojects"
-for PROJECT_URL in $PROJECTS; do
-    PROJECT_NAME=$(basename $PROJECT_URL .git)
-    PROJECT_PATH=$YADT_WORKSPACE/$PROJECT_NAME
-    echo "---- $PROJECT_NAME"
-    echo "------ $PROJECT_PATH <- $PROJECT_URL"
+print "-- updating local project"
+subprocess.call(REPO_CMDS["git"][PULL])
+subprocess.call(REPO_CMDS["git"][STATUS])
 
-    if [[ -d $PROJECT_PATH ]]; then
-        echo "------ updating"
-        cd $PROJECT_PATH
-        git pull
-        cd $CURRENT_DIR
-    else
-        echo "------ cloning"
-        cd $YADT_WORKSPACE
-        git clone $PROJECT_URL
-        cd $CURRENT_DIR
-    fi
-    cd $PROJECT_PATH
-    git status
-    cd $CURRENT_DIR
+print "-- cloning/updating subprojects"
+for project_def_file in project_def_files:
+    with open(os.path.join(PROJECT_DEFS_DIR, project_def_file)) as project_defs:
+        for project_def in project_defs:
+            project_def = project_def.rstrip()
+            if not project_def:
+                continue
+            try:
+                tokens = project_def.split()
+                type, url = tokens[0:2]
+            except ValueError, e:
+                print "-- [WARN] cannot handle project definition '%s'" % project_def
+                print str(e)
+                continue
+            name = tokens[2] if len(tokens) > 2 else None
 
-    echo
-done
+            if not name:
+                name = os.path.splitext(os.path.basename(url))[0]
 
-echo "done."
+            print "---- %s" % name
+            path = os.path.join(name)
+            print "------ %s: %s <- %s" % (type, path, url)
 
+            if os.path.exists(path):
+                print "------ updating"
+                cmd = REPO_CMDS[type][PULL]
+                subprocess.call(cmd, cwd=path)
+            else:
+                print "------ cloning"
+                cmd = REPO_CMDS[type][CLONE]
+                subprocess.call(cmd + [url, name])
+            cmd = REPO_CMDS[type][STATUS]
+            subprocess.call(cmd, cwd=path)
+            print
+
+print "done."
