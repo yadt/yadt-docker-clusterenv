@@ -1,0 +1,12 @@
+git https://github.com/yadt/yadtshell.git
+git https://github.com/yadt/yadt-minion.git
+git https://github.com/yadt/hostexpand.git
+git https://github.com/yadt/yadtbroadcast-client.git
+git https://github.com/yadt/yadtbroadcast-server.git
+git https://github.com/yadt/yadtbroadcast-server-docroot.git
+git https://github.com/yadt/yadtbroadcast-service.git
+git https://github.com/yadt/yadtreceiver.git
+git https://github.com/yadt/yadtcommons.git
+git https://github.com/yadt/yadtcontroller.git
+git https://github.com/mriehl/fysom.git
+git https://github.com/arnehilmann/docker-clusterenv.git
