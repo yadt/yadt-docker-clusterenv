@@ -1,0 +1,3 @@
+#!/bin/bash
+
+PYTHONPATH=yadtshell/src/main/python:is24-yadtshell/src/main/python:hostexpand/src/main/python:yadtcommons/src/main/python yadtshell $@
